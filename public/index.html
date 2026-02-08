@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control 🦉</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <h1>🦉 Mission Control</h1>
+      <span class="subtitle">Adam & Atticus — Command Center</span>
+    </div>
+    <div class="header-right">
+      <div class="filters">
+        <select id="filterCategory">
+          <option value="">All Categories</option>
+        </select>
+        <select id="filterAssignee">
+          <option value="">Everyone</option>
+          <option value="Adam">Adam</option>
+          <option value="Atticus">Atticus</option>
+        </select>
+        <select id="filterPriority">
+          <option value="">All Priorities</option>
+          <option value="high">🔴 High</option>
+          <option value="medium">🟡 Medium</option>
+          <option value="low">🟢 Low</option>
+        </select>
+      </div>
+      <button class="btn-add" onclick="openModal()">+ New Task</button>
+    </div>
+  </header>
+
+  <main class="board" id="board"></main>
+
+  <!-- Task Modal -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 id="modalTitle">New Task</h2>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <form id="taskForm" onsubmit="saveTask(event)">
+        <input type="hidden" id="taskId">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="taskTitleInput" required placeholder="What needs to be done?">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="taskDesc" rows="3" placeholder="Details, notes, context..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Column</label>
+            <select id="taskColumn"></select>
+          </div>
+          <div class="form-group">
+            <label>Priority</label>
+            <select id="taskPriority">
+              <option value="low">🟢 Low</option>
+              <option value="medium" selected>🟡 Medium</option>
+              <option value="high">🔴 High</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Category</label>
+            <select id="taskCategory"></select>
+          </div>
+          <div class="form-group">
+            <label>Assignee</label>
+            <select id="taskAssignee">
+              <option value="Adam">Adam</option>
+              <option value="Atticus">Atticus</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Due Date</label>
+          <input type="date" id="taskDue">
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-delete" id="btnDelete" onclick="deleteTask()" style="display:none">Delete</button>
+          <button type="submit" class="btn-save">Save Task</button>
+        </div>
+      </form>
+      
+      <!-- Comments section (only for existing tasks) -->
+      <div id="commentsSection" style="display:none">
+        <h3>Comments</h3>
+        <div id="commentsList"></div>
+        <div class="comment-input">
+          <input type="text" id="commentText" placeholder="Add a comment...">
+          <button onclick="addComment()">Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
