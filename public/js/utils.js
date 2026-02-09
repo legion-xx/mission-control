@@ -122,11 +122,15 @@ function showToast(message, type = 'info', duration = 4000) {
 }
 
 // Loading indicator
-function showLoading(show) {
+function showLoading(show = true) {
     const loading = document.getElementById('loading');
     if (loading) {
         loading.classList.toggle('hidden', !show);
     }
+}
+
+function hideLoading() {
+    showLoading(false);
 }
 
 // Date formatting utilities
