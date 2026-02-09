@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="64" fill="#6366f1"/>
+  
+  <!-- Target circles -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="8"/>
+  <circle cx="256" cy="256" r="140" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="6"/>
+  <circle cx="256" cy="256" r="100" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="4"/>
+  
+  <!-- Center target -->
+  <circle cx="256" cy="256" r="60" fill="rgba(255,255,255,0.9)"/>
+  <circle cx="256" cy="256" r="35" fill="#6366f1"/>
+  
+  <!-- Mission control elements -->
+  <!-- Top control panel -->
+  <rect x="180" y="120" width="152" height="20" rx="10" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="200" cy="130" r="6" fill="#10b981"/>
+  <circle cx="220" cy="130" r="6" fill="#f59e0b"/>
+  <circle cx="240" cy="130" r="6" fill="#ef4444"/>
+  
+  <!-- Side control panels -->
+  <rect x="120" y="180" width="20" height="152" rx="10" fill="rgba(255,255,255,0.7)"/>
+  <rect x="372" y="180" width="20" height="152" rx="10" fill="rgba(255,255,255,0.7)"/>
+  
+  <!-- Bottom status bar -->
+  <rect x="180" y="372" width="152" height="20" rx="10" fill="rgba(255,255,255,0.8)"/>
+  
+  <!-- Grid lines -->
+  <line x1="256" y1="120" x2="256" y2="140" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+  <line x1="256" y1="372" x2="256" y2="392" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+  <line x1="120" y1="256" x2="140" y2="256" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+  <line x1="372" y1="256" x2="392" y2="256" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+  
+  <!-- Corner indicators -->
+  <circle cx="160" cy="160" r="4" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="352" cy="160" r="4" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="160" cy="352" r="4" fill="rgba(255,255,255,0.6)"/>
+  <circle cx="352" cy="352" r="4" fill="rgba(255,255,255,0.6)"/>
+</svg>

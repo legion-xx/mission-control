@@ -1,0 +1,116 @@
+{
+  "name": "Mission Control",
+  "short_name": "Mission Control",
+  "description": "Personal productivity dashboard for managing tasks, notes, and links",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f11",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["productivity", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icons/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Mission Control Dashboard"
+    },
+    {
+      "src": "/icons/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mission Control Mobile View"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "description": "View your dashboard",
+      "url": "/#dashboard",
+      "icons": [
+        {
+          "src": "/icons/shortcut-dashboard.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Task Board",
+      "description": "Manage your tasks",
+      "url": "/#board",
+      "icons": [
+        {
+          "src": "/icons/shortcut-board.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Quick Capture",
+      "description": "Add a quick task or note",
+      "url": "/#dashboard",
+      "icons": [
+        {
+          "src": "/icons/shortcut-capture.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "protocol_handlers": [
+    {
+      "protocol": "web+missioncontrol",
+      "url": "/?action=%s"
+    }
+  ]
+}

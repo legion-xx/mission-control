@@ -1,106 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mission Control 🦉</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control</title>
+    <meta name="description" content="Personal productivity dashboard">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <header>
-    <div class="header-left">
-      <h1>🦉 Mission Control</h1>
-      <span class="subtitle">Adam & Atticus — Command Center</span>
+    <!-- Install prompt -->
+    <div id="install-prompt" class="install-prompt hidden">
+        <div class="install-prompt-content">
+            <div class="install-prompt-icon">📱</div>
+            <div>
+                <div class="install-prompt-title">Install Mission Control</div>
+                <div class="install-prompt-subtitle">Get the full app experience</div>
+            </div>
+            <button id="install-button" class="btn btn-primary">Install</button>
+            <button id="install-dismiss" class="btn-ghost">&times;</button>
+        </div>
     </div>
-    <div class="header-right">
-      <div class="filters">
-        <select id="filterCategory">
-          <option value="">All Categories</option>
-        </select>
-        <select id="filterAssignee">
-          <option value="">Everyone</option>
-          <option value="Adam">Adam</option>
-          <option value="Atticus">Atticus</option>
-        </select>
-        <select id="filterPriority">
-          <option value="">All Priorities</option>
-          <option value="high">🔴 High</option>
-          <option value="medium">🟡 Medium</option>
-          <option value="low">🟢 Low</option>
-        </select>
-      </div>
-      <button class="btn-add" onclick="openModal()">+ New Task</button>
+
+    <!-- Quick capture bar -->
+    <div id="quick-capture" class="quick-capture">
+        <div class="quick-capture-content">
+            <div class="quick-capture-icon">⚡</div>
+            <input 
+                id="quick-input" 
+                type="text" 
+                placeholder="Quick capture: Add task, note, or link..."
+                autocomplete="off"
+                spellcheck="false"
+            >
+            <div class="quick-capture-type">
+                <button id="capture-task" class="capture-type active" data-type="task">Task</button>
+                <button id="capture-note" class="capture-type" data-type="note">Note</button>
+                <button id="capture-link" class="capture-type" data-type="link">Link</button>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <main class="board" id="board"></main>
+    <!-- Main layout -->
+    <div id="app" class="app">
+        <!-- Desktop sidebar -->
+        <nav class="sidebar desktop-only">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="logo-icon">🎯</div>
+                    <div class="logo-text">Mission Control</div>
+                </div>
+            </div>
+            
+            <div class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-view="dashboard">
+                    <div class="nav-icon">📊</div>
+                    <div class="nav-text">Dashboard</div>
+                </a>
+                <a href="#board" class="nav-item" data-view="board">
+                    <div class="nav-icon">📋</div>
+                    <div class="nav-text">Board</div>
+                </a>
+                <a href="#notes" class="nav-item" data-view="notes">
+                    <div class="nav-icon">📝</div>
+                    <div class="nav-text">Notes</div>
+                </a>
+                <a href="#links" class="nav-item" data-view="links">
+                    <div class="nav-icon">🔗</div>
+                    <div class="nav-text">Links</div>
+                </a>
+                <a href="#focus" class="nav-item" data-view="focus">
+                    <div class="nav-icon">🎯</div>
+                    <div class="nav-text">Focus</div>
+                </a>
+                <a href="#activity" class="nav-item" data-view="activity">
+                    <div class="nav-icon">📈</div>
+                    <div class="nav-text">Activity</div>
+                </a>
+                <a href="#settings" class="nav-item" data-view="settings">
+                    <div class="nav-icon">⚙️</div>
+                    <div class="nav-text">Settings</div>
+                </a>
+            </div>
+            
+            <div class="sidebar-footer">
+                <button id="theme-toggle" class="theme-toggle">
+                    <div class="theme-icon">🌙</div>
+                </button>
+            </div>
+        </nav>
 
-  <!-- Task Modal -->
-  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-    <div class="modal" onclick="event.stopPropagation()">
-      <div class="modal-header">
-        <h2 id="modalTitle">New Task</h2>
-        <button class="modal-close" onclick="closeModal()">&times;</button>
-      </div>
-      <form id="taskForm" onsubmit="saveTask(event)">
-        <input type="hidden" id="taskId">
-        <div class="form-group">
-          <label>Title</label>
-          <input type="text" id="taskTitleInput" required placeholder="What needs to be done?">
-        </div>
-        <div class="form-group">
-          <label>Description</label>
-          <textarea id="taskDesc" rows="3" placeholder="Details, notes, context..."></textarea>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Column</label>
-            <select id="taskColumn"></select>
-          </div>
-          <div class="form-group">
-            <label>Priority</label>
-            <select id="taskPriority">
-              <option value="low">🟢 Low</option>
-              <option value="medium" selected>🟡 Medium</option>
-              <option value="high">🔴 High</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Category</label>
-            <select id="taskCategory"></select>
-          </div>
-          <div class="form-group">
-            <label>Assignee</label>
-            <select id="taskAssignee">
-              <option value="Adam">Adam</option>
-              <option value="Atticus">Atticus</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Due Date</label>
-          <input type="date" id="taskDue">
-        </div>
-        <div class="form-actions">
-          <button type="button" class="btn-delete" id="btnDelete" onclick="deleteTask()" style="display:none">Delete</button>
-          <button type="submit" class="btn-save">Save Task</button>
-        </div>
-      </form>
-      
-      <!-- Comments section (only for existing tasks) -->
-      <div id="commentsSection" style="display:none">
-        <h3>Comments</h3>
-        <div id="commentsList"></div>
-        <div class="comment-input">
-          <input type="text" id="commentText" placeholder="Add a comment...">
-          <button onclick="addComment()">Post</button>
-        </div>
-      </div>
+        <!-- Main content area -->
+        <main class="main-content">
+            <div id="content" class="content">
+                <!-- Dynamic content loaded here -->
+            </div>
+        </main>
+
+        <!-- Mobile bottom navigation -->
+        <nav class="bottom-nav mobile-only">
+            <a href="#dashboard" class="bottom-nav-item active" data-view="dashboard">
+                <div class="bottom-nav-icon">📊</div>
+                <div class="bottom-nav-text">Dashboard</div>
+            </a>
+            <a href="#board" class="bottom-nav-item" data-view="board">
+                <div class="bottom-nav-icon">📋</div>
+                <div class="bottom-nav-text">Board</div>
+            </a>
+            <a href="#notes" class="bottom-nav-item" data-view="notes">
+                <div class="bottom-nav-icon">📝</div>
+                <div class="bottom-nav-text">Notes</div>
+            </a>
+            <a href="#focus" class="bottom-nav-item" data-view="focus">
+                <div class="bottom-nav-icon">🎯</div>
+                <div class="bottom-nav-text">Focus</div>
+            </a>
+            <a href="#settings" class="bottom-nav-item" data-view="settings">
+                <div class="bottom-nav-icon">⚙️</div>
+                <div class="bottom-nav-text">Settings</div>
+            </a>
+        </nav>
     </div>
-  </div>
 
-  <script src="app.js"></script>
+    <!-- Global search modal -->
+    <div id="search-modal" class="modal">
+        <div class="modal-content search-modal-content">
+            <div class="search-header">
+                <div class="search-input-container">
+                    <div class="search-icon">🔍</div>
+                    <input 
+                        id="search-input" 
+                        type="text" 
+                        placeholder="Search tasks, notes, links..."
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                    <kbd class="search-shortcut">Esc</kbd>
+                </div>
+            </div>
+            <div id="search-results" class="search-results">
+                <div class="search-empty">Start typing to search...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading indicator -->
+    <div id="loading" class="loading hidden">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Toast notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="/js/utils.js"></script>
+    <script src="/js/capture.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/board.js"></script>
+    <script src="/js/notes.js"></script>
+    <script src="/js/links.js"></script>
+    <script src="/js/app.js"></script>
+
+    <script>
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(console.error);
+        }
+        
+        // Install prompt handling
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-prompt').classList.remove('hidden');
+        });
+        
+        document.getElementById('install-button').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const result = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                document.getElementById('install-prompt').classList.add('hidden');
+            }
+        });
+        
+        document.getElementById('install-dismiss').addEventListener('click', () => {
+            document.getElementById('install-prompt').classList.add('hidden');
+        });
+    </script>
 </body>
 </html>
